@@ -1,5 +1,5 @@
 import { Router } from '@reach/router'
-import { Home } from './screens/home'
+import { Home } from './screens/root'
 
 function App() {
   return (

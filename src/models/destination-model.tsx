@@ -2,9 +2,8 @@ import { Instance, types } from 'mobx-state-tree'
 
 export const Destination = types.model({
   id: types.identifier,
-  title: types.string,
-  summary: types.string,
-  description: types.string,
+  summary: types.optional(types.string, ''),
+  location: types.optional(types.string, ''),
   tags: types.array(types.string),
 })
 

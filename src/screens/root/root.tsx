@@ -8,23 +8,20 @@ export const appState = AppModel.create({ tab: 'Destinations' })
 appState.addDestinations(
   Destination.create({
     id: 'd1',
-    title: 'Italy',
-    summary: 'Venice, Italy',
-    description: 'this is the description of going to italy.',
+    summary: 'Italy',
+    location: 'Venice, Italy',
     tags: ['europe', '2023'],
   }),
   Destination.create({
     id: 'd2',
-    title: 'New York City',
-    summary: 'NYC, USA',
-    description: 'Visit the capital of NY.',
+    summary: 'New York',
+    location: 'NYC, USA',
     tags: ['usa', '2022'],
   }),
   Destination.create({
     id: 'd3',
-    title: 'Seattle',
-    summary: 'Seattle, WA',
-    description: 'Check out the amazing rain weather for a short period.',
+    summary: 'Seattle',
+    location: 'Seattle, WA',
     tags: ['usa', '2023'],
   })
 )
@@ -35,10 +32,7 @@ export const Home = observer(() => {
       <Menu secondary>
         <Menu.Item header name="Destinations" style={{ paddingLeft: '0px' }}>
           <Header as="h1">
-            Travel Planner
-            <Header.Subheader>
-              Configure travel destinations and paths
-            </Header.Subheader>
+            Travel Bot<Header.Subheader>Powered by Snoapps</Header.Subheader>
           </Header>
         </Menu.Item>
         <Menu.Menu position="right">
@@ -64,8 +58,7 @@ export const Home = observer(() => {
       <DestinationsPage
         active={appState.isActiveTab('Destinations')}
         currentDestination={appState.currentDestination}
-        destinations={appState.destinations}
-        setDestination={appState.setDestination}
+        createDestination={appState.createDestination}
       />
     </Container>
   )

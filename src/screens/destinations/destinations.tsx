@@ -1,48 +1,50 @@
-import { Grid, Item, Label } from 'semantic-ui-react'
+import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react'
 import { IDestination } from '../../models'
-import { Tabs } from '../home/tabs'
+import { Tabs } from './tabs'
+import { DestinationList } from './destination-list'
 
 interface Props {
   active?: boolean
   currentDestination?: IDestination
-  destinations: IDestination[]
-  setDestination: (destination: IDestination) => void
+  createDestination: () => void
 }
 
 export const DestinationsPage: React.FC<Props> = ({
   active,
   currentDestination,
-  destinations,
-  setDestination,
+  createDestination,
 }: Props) => {
   if (!active) return null
   return (
     <Grid>
       <Grid.Column width={4}>
-        <Item.Group divided>
-          {destinations.map((destination) => (
-            <Item key={destination.title}>
-              <Item.Content>
-                <Item.Header as="a" onClick={() => setDestination(destination)}>
-                  {destination.title}
-                </Item.Header>
-                <Item.Meta>
-                  <span className="cinema">{destination.summary}</span>
-                </Item.Meta>
-                <Item.Description>{destination.description}</Item.Description>
-                <Item.Extra>
-                  {destination.tags.map((tag) => (
-                    <Label key={tag}>{tag}</Label>
-                  ))}
-                </Item.Extra>
-              </Item.Content>
-            </Item>
-          ))}
-        </Item.Group>
+        <DestinationList />
       </Grid.Column>
       <Grid.Column width={12}>
         <Tabs destination={currentDestination}>
-          Please select a destination!
+          <Header as="h2" icon textAlign="center" style={{ marginTop: '25px' }}>
+            <Icon name="map marker alternate" />
+            Plan your Destination
+            <Header.Subheader>
+              Choose a destination or add a new one to begin planning
+            </Header.Subheader>
+            <Divider hidden />
+          </Header>
+          <Grid>
+            <Grid.Column textAlign="center">
+              <Button
+                animated
+                secondary
+                className="center"
+                onClick={() => createDestination()}
+              >
+                <Button.Content visible>New Destination</Button.Content>
+                <Button.Content hidden>
+                  <Icon name="arrow right" />
+                </Button.Content>
+              </Button>
+            </Grid.Column>
+          </Grid>
         </Tabs>
       </Grid.Column>
     </Grid>
