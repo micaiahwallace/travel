@@ -1,52 +1,34 @@
 import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react'
-import { IDestination } from '../../models'
 import { Tabs } from './tabs'
 import { DestinationList } from './destination-list'
+import { appState } from '../root'
+import { observer } from 'mobx-react-lite'
+import { IconHeaderButton } from '../../components/icon-header-button'
 
-interface Props {
-  active?: boolean
-  currentDestination?: IDestination
-  createDestination: () => void
-}
-
-export const DestinationsPage: React.FC<Props> = ({
-  active,
-  currentDestination,
-  createDestination,
-}: Props) => {
-  if (!active) return null
+export const DestinationsPage: React.FC = observer(() => {
+  if (!appState.view.isActivePage('Destinations')) return null
+  const onClickNewDestination = () => {
+    appState.view.setDestination(appState.store.createDestination())
+  }
   return (
     <Grid>
       <Grid.Column width={4}>
         <DestinationList />
       </Grid.Column>
       <Grid.Column width={12}>
-        <Tabs destination={currentDestination}>
-          <Header as="h2" icon textAlign="center" style={{ marginTop: '25px' }}>
-            <Icon name="map marker alternate" />
-            Plan your Destination
-            <Header.Subheader>
-              Choose a destination or add a new one to begin planning
-            </Header.Subheader>
-            <Divider hidden />
-          </Header>
-          <Grid>
-            <Grid.Column textAlign="center">
-              <Button
-                animated
-                secondary
-                className="center"
-                onClick={() => createDestination()}
-              >
-                <Button.Content visible>New Destination</Button.Content>
-                <Button.Content hidden>
-                  <Icon name="arrow right" />
-                </Button.Content>
-              </Button>
-            </Grid.Column>
-          </Grid>
+        <Tabs
+          destination={appState.view.destination}
+          setDestination={appState.view.setDestination}
+        >
+          <IconHeaderButton
+            icon="map marker alternate"
+            title="Plan your Destination"
+            subTitle="Choose a destination or add a new one to begin planning"
+            buttonText="New Destination"
+            onClick={onClickNewDestination}
+          />
         </Tabs>
       </Grid.Column>
     </Grid>
   )
-}
+})

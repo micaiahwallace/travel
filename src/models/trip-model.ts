@@ -3,7 +3,7 @@ import { Destination } from './destination-model'
 
 export const Trip = types.model({
   id: types.identifier,
-  name: types.string,
+  name: types.optional(types.string, ''),
   destinations: types.array(types.reference(Destination)),
 })
 

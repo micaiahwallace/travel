@@ -4,8 +4,16 @@ import { AppModel, Destination } from '../../models'
 import { DestinationsPage } from '../destinations'
 import { TripsPage } from '../trips'
 
-export const appState = AppModel.create({ tab: 'Destinations' })
-appState.addDestinations(
+export const appState = AppModel.create({
+  view: {
+    page: 'Destinations',
+  },
+  store: {
+    trips: [],
+    destinations: [],
+  },
+})
+appState.store.addDestinations(
   Destination.create({
     id: 'd1',
     summary: 'Italy',
@@ -38,28 +46,19 @@ export const Home = observer(() => {
         <Menu.Menu position="right">
           <Menu.Item
             name="Trips"
-            active={appState.isActiveTab('Trips')}
-            onClick={() => appState.selectMainTab('Trips')}
+            active={appState.view.isActivePage('Trips')}
+            onClick={() => appState.view.setPage('Trips')}
           />
           <Menu.Item
             name="Destinations"
-            active={appState.isActiveTab('Destinations')}
-            onClick={() => appState.selectMainTab('Destinations')}
+            active={appState.view.isActivePage('Destinations')}
+            onClick={() => appState.view.setPage('Destinations')}
           />
         </Menu.Menu>
       </Menu>
       <Divider />
-      <TripsPage
-        active={appState.isActiveTab('Trips')}
-        currentTrip={appState.currentTrip}
-        trips={appState.trips}
-        setTrip={appState.setTrip}
-      />
-      <DestinationsPage
-        active={appState.isActiveTab('Destinations')}
-        currentDestination={appState.currentDestination}
-        createDestination={appState.createDestination}
-      />
+      <TripsPage />
+      <DestinationsPage />
     </Container>
   )
 })

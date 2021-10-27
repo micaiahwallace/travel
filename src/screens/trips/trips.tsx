@@ -1,13 +1,12 @@
-import { ITrip } from '../../models'
+import { observer } from 'mobx-react-lite'
+import { appState } from '../root'
 
-interface Props {
-  active?: boolean
-  currentTrip?: ITrip
-  trips: ITrip[]
-  setTrip: (trip: ITrip) => void
-}
-
-export const TripsPage: React.FC<Props> = ({ active }: Props) => {
-  if (!active) return null
-  return <h1>trips</h1>
-}
+export const TripsPage: React.FC = observer(() => {
+  if (!appState.view.isActivePage('Trips')) return null
+  return (
+    <>
+      <h1>trips</h1>
+      {JSON.stringify(appState.store.trips, null, '\t')}
+    </>
+  )
+})

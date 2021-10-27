@@ -5,6 +5,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 import 'semantic-ui-less/semantic.less'
+import 'react-datepicker/dist/react-datepicker.css'
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,8 +1,13 @@
 import { observer } from 'mobx-react-lite'
 import { Form, Header, Input, Tab } from 'semantic-ui-react'
+import { DateInput } from '../../../components/date-input'
 import { appState } from '../../root'
 
 export const InfoTab: React.FC = observer(() => {
+  const { destination } = appState.view
+  if (!destination) {
+    return null
+  }
   return (
     <Tab.Pane attached={false}>
       <Header as="h2">Destination Info</Header>
@@ -14,9 +19,13 @@ export const InfoTab: React.FC = observer(() => {
             iconPosition="left"
             type="text"
             placeholder="Venice, Italy"
-            value={appState.currentDestination?.location}
+            value={destination.location}
             onChange={(e) =>
-              appState.saveDestination('location', e.target.value)
+              appState.store.updateDestination(
+                destination.id,
+                'location',
+                e.target.value
+              )
             }
           />
         </Form.Field>
@@ -27,12 +36,34 @@ export const InfoTab: React.FC = observer(() => {
             iconPosition="left"
             type="text"
             placeholder="going to italy"
-            value={appState.currentDestination?.summary}
+            value={destination.summary}
             onChange={(e) =>
-              appState.saveDestination('summary', e.target.value)
+              appState.store.updateDestination(
+                destination.id,
+                'summary',
+                e.target.value
+              )
             }
           />
         </Form.Field>
+        <DateInput
+          start
+          label="Start Date"
+          placeholder="MM/DD/YYYY"
+          date={destination.startDate}
+          setDate={(d) =>
+            appState.store.updateDestination(destination.id, 'startDate', d)
+          }
+        />
+        <DateInput
+          end
+          label="End Date"
+          placeholder="MM/DD/YYYY"
+          date={destination.endDate}
+          setDate={(d) =>
+            appState.store.updateDestination(destination.id, 'endDate', d)
+          }
+        />
       </Form>
     </Tab.Pane>
   )
