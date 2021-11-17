@@ -1,9 +1,4 @@
-import {
-  createElement,
-  forwardRef,
-  InputHTMLAttributes,
-  LegacyRef,
-} from 'react'
+import { forwardRef, InputHTMLAttributes, LegacyRef } from 'react'
 import { Form } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker'
 

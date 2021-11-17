@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals'
 import 'semantic-ui-less/semantic.less'
 import 'react-datepicker/dist/react-datepicker.css'
 
+console.log('App Version:', process.env.REACT_APP_VERSION)
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

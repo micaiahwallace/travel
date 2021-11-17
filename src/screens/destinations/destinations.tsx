@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import { Tabs } from './tabs'
 import { DestinationList } from './destination-list'
 import { appState } from '../root'
